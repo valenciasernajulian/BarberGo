@@ -67,6 +67,7 @@ export function HomeScreen({ user, onOpenShop }) {
   const [appointments, setAppointments] = useState([])
   const [search, setSearch] = useState('')
   const [error, setError] = useState('')
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     let active = true
@@ -77,6 +78,7 @@ export function HomeScreen({ user, onOpenShop }) {
         setAppointments(citas)
       })
       .catch((err) => active && setError(err.message))
+      .finally(() => { if (active) setReady(true) })
     return () => { active = false }
   }, [])
 
@@ -134,7 +136,8 @@ export function HomeScreen({ user, onOpenShop }) {
           </button>
         ))}
       </div>
-      {!error && filtered.length === 0 && <p className="text-sm text-[#8C7B6E] mt-4">No hay barberías con esa búsqueda.</p>}
+      {!ready && !error && <p className="text-sm text-[#8C7B6E]">Cargando barberías...</p>}
+      {!error && ready && filtered.length === 0 && <p className="text-sm text-[#8C7B6E] mt-4">No hay barberías con esa búsqueda.</p>}
     </div>
   )
 }

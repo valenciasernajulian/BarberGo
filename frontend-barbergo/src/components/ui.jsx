@@ -1,9 +1,4 @@
-export const STATUS_LABELS = {
-  pending: 'Pendiente',
-  confirmed: 'Confirmada',
-  completed: 'Completada',
-  cancelled: 'Cancelada',
-}
+import { STATUS_LABELS } from '../lib/format'
 
 const STATUS_COLORS = {
   pending: 'bg-[#EFE5DA] text-[#8C7B6E]',

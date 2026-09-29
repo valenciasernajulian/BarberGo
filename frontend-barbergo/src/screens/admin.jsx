@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { api } from '../lib/api'
-import { formatDate, formatPrice } from '../lib/format'
-import { Alert, Btn, Card, Input, ScissorsIcon, STATUS_LABELS, StatusChip } from '../components/ui'
+import { formatDate, formatPrice, STATUS_LABELS } from '../lib/format'
+import { Alert, Btn, Card, Input, ScissorsIcon, StatusChip } from '../components/ui'
 
 const TABS = [
   { screen: 'admin-dashboard', label: 'Panel', icon: '📊' },
@@ -134,7 +134,9 @@ export function AdminAppointments() {
     api(`/admin/citas${query}`).then(setAppointments).catch((err) => setError(err.message))
   }
 
-  useEffect(() => { load('all') }, [])
+  useEffect(() => {
+    api('/admin/citas').then(setAppointments).catch((err) => setError(err.message))
+  }, [])
 
   async function updateStatus(id, estado) {
     setError('')

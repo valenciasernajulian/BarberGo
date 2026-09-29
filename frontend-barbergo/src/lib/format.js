@@ -58,3 +58,10 @@ export function memberSince(value) {
   if (Number.isNaN(date.getTime())) return ''
   return date.toLocaleDateString('es-CO', { month: 'long', year: 'numeric' })
 }
+
+export const STATUS_LABELS = {
+  pending: 'Pendiente',
+  confirmed: 'Confirmada',
+  completed: 'Completada',
+  cancelled: 'Cancelada',
+}

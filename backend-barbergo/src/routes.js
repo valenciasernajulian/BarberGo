@@ -417,15 +417,14 @@ router.get('/admin/resumen', auth, adminOnly, asyncRoute(async (req, res) => {
   const today = todayBogota()
   const statsRows = await query(
     `SELECT
-       SUM(fecha = ?) AS citas_hoy,
-       SUM(fecha = ? AND estado = 'completada') AS completadas_hoy,
-       SUM(estado = 'pendiente') AS pendientes,
-       SUM(fecha = ? AND estado = 'completada') AS ingresos_servicios,
-       COALESCE(SUM(CASE WHEN fecha = ? AND estado = 'completada' THEN s.precio END), 0) AS ingresos
+       SUM(c.fecha = ?) AS citas_hoy,
+       SUM(c.fecha = ? AND c.estado = 'completada') AS completadas_hoy,
+       SUM(c.estado = 'pendiente') AS pendientes,
+       COALESCE(SUM(CASE WHEN c.fecha = ? AND c.estado = 'completada' THEN s.precio END), 0) AS ingresos
      FROM citas c
      JOIN servicios s ON s.id_servicio = c.id_servicio
      WHERE c.id_barberia = ?`,
-    [today, today, today, today, shop.id_barberia],
+    [today, today, today, shop.id_barberia],
   )
   const barbers = await query(
     'SELECT COUNT(*) AS total FROM barberos WHERE id_barberia = ? AND estado = 1',

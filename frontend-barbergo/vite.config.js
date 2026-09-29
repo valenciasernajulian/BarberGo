@@ -1,10 +1,11 @@
+import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA({
+  plugins: [react(), tailwindcss(), VitePWA({
     registerType: 'autoUpdate',
     injectRegister: false,
 
@@ -14,10 +15,13 @@ export default defineConfig({
     },
 
     manifest: {
-      name: 'frontend-barbergo',
-      short_name: 'frontend',
-      description: 'nuestro proyecto es una aplicacion para agendar citas de barberias virtualmente',
-      theme_color: '#ffffff',
+      name: 'BarberGo',
+      short_name: 'BarberGo',
+      description: 'Agenda citas en barberías',
+      theme_color: '#FBF7F2',
+      background_color: '#FBF7F2',
+      display: 'standalone',
+      lang: 'es',
     },
 
     workbox: {
@@ -33,4 +37,9 @@ export default defineConfig({
       type: 'module',
     },
   })],
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3000',
+    },
+  },
 })

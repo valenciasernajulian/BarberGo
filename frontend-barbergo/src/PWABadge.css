@@ -6,7 +6,8 @@
     padding: 12px;
     border: 1px solid #8885;
     border-radius: 4px;
-    z-index: 1;
+    z-index: 40;
+    bottom: 4.5rem;
     text-align: left;
     box-shadow: 3px 4px 5px 0 #8885;
     background-color: white;

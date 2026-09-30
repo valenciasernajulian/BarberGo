@@ -1,4 +1,5 @@
 const TOKEN_KEY = 'barbergo_token'
+const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
 
 export function getToken() {
   return localStorage.getItem(TOKEN_KEY)
@@ -20,7 +21,7 @@ export async function api(path, { method = 'GET', body } = {}) {
 
   let response
   try {
-    response = await fetch(`/api${path}`, {
+    response = await fetch(`${API_BASE}/api${path}`, {
       method,
       headers,
       body: body !== undefined ? JSON.stringify(body) : undefined,
